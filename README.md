@@ -11,7 +11,7 @@ At https://urs.earthdata.nasa.gov/. In order to download images in bulk, in Appl
 
 ### Download links list
 
-Search the satellite images through https://disc.gsfc.nasa.gov/. For example, monthly rainfall (via the TRMM). Click on Subset/Get Data, refine options (date, geography). Download links list as txt document (in the example, it is 'TRMM_links.txt'). The prefered format I will be using is HDF (Hierarchical Data Format) raster files. 
+Search the satellite images through https://disc.gsfc.nasa.gov/. For example, monthly rainfall (via the TRMM). Click on Subset/Get Data, refine options (date, geography). Download links list as txt document (in the example, it is 'TRMM_links.txt'). The prefered format I will be using is NetCDF (Network Common Data Form) data format. 
 
 ### Downloading via wget
 
@@ -24,7 +24,7 @@ brew install wget
 
 ```
  
-Creating a .netrc file: 
+Creating a .netrc file in the terminal: 
 
 ```
 touch .netrc
@@ -49,15 +49,28 @@ wget --load-cookies ~/.urs_cookies --save-cookies ~/.urs_cookies --auth-no-chall
 This will download all the files in the folder you are working. 
  
  
-## Reading HDF files
+## Reading NetCDF files
 
-HDF files support different levels of information, or layers. In the README Document for the files downloaded (is included in the list of downloads), there is a description of the algorithm used to estimate rainfall, sources (such as satellites and sensors), and layers of information provided (which usually includes the inputs used).
+NetCDG files support different levels of information, or layers. In the README Document for the files downloaded (is included in the list of downloads), there is a description of the algorithm used to estimate rainfall, sources (such as satellites and sensors), and layers of information provided (which usually includes the inputs used).
 
 I will be focusing on the product 3B43, monthly rainfall estimate product, gridded with a resolution of 0.25° by 0.25°. 
 
 
-### Opening HDF in R
+### Opening NetCDF in R
 
+Requires package "ncdf4" and "raster". 
+
+```
+install.packages("ncdf4")
+install.packages("raster")
+```
+
+I am going to compile the gridded data to the district level of Peru. For this, I need to especify that the extract function should come from the package 'raster'
+
+```
+
+
+```
 
 
 
