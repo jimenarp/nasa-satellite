@@ -39,6 +39,7 @@ where <uid> is your user name and <password> is your Earthdata Login password wi
 touch .urs_cookies.
 ```
 
+
 Finally on the terminal, call on the text file with the following line (replace <url.txt> with the name of the file saved with the links to be donwoladed, in this case 'TRMM_links.txt'. You should be working on the folder that contains this file):
 
 ```
@@ -107,13 +108,21 @@ Turn the array into raster. In this case I will be using as standard projection 
 ```
 raster_file <- raster(t(rain.array), xmn=min(lon), xmx=max(lon), ymn=min(lat), ymx=max(lat), crs=CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs+ towgs84=0,0,0"))
 ```
+
+
+A raster file looks like this: 
+
+![](./images/raster_example.jpeg)
+
 And then extract the raster file information to shapefile using the code: 
 
 ```
 extract(raster_file, shapefile, fun = mean,na.rm=T, df=F, small=T, sp=T,  weights=TRUE, normalizedweights=TRUE)
 ```
-which weights the average by area. 
+which weights the average by area. This is a shapefile with a dataframe of info, that can be plotted like this: 
 
+
+![](./images/final_sample.jpeg)
 
 ## Sources and more information: 
 
