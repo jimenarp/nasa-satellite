@@ -16,7 +16,6 @@ output<- shapefile[c("NAME_1","NAME_2")] # dataframe with region and district in
 
 # getting list of files to be opened
 
-setwd(homedir)
 setwd('./nc4_data')
 list_files<-list.files(pattern=".nc4")
 
@@ -42,9 +41,8 @@ for (i in 1:length(list_files)){
 }
 
 
-
-
-
+setwd('../compiled_data')
+save (output, file='peru_rainfall.RData')
 
 #crop raster
 #rb <- crop(file_raster, shapefile)
