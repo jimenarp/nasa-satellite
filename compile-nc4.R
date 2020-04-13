@@ -44,11 +44,28 @@ for (i in 1:length(list_files)){
 setwd('../compiled_data')
 save (output, file='peru_rainfall.RData')
 
+# Plotting examples
+
+temp_file<-list_files[1]
+temp_file <- nc_open(temp_file)
+lon<-ncvar_get(temp_file, "nlon")
+lat<-ncvar_get(temp_file, "nlat")
+tmp.array<-ncvar_get(temp_file,"precipitation")
+fillvalue<-ncatt_get(temp_file, "precipitation", "_FillValue")
+tmp.array[tmp.array == fillvalue$value] <- NA
+name_temp<-str_sub(temp_file$filename,6,11)
+file_raster <- raster(t(tmp.array), xmn=min(lon), xmx=max(lon), ymn=min(lat), ymx=max(lat), crs=CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs+ towgs84=0,0,0"))
+file_raster <- flip(file_raster, direction='y')
+x<-extract(file_raster, shapefile, fun = mean,na.rm=T, df=F, small=T, sp=T,  weights=TRUE, normalizedweights=TRUE)
+
+
 #crop raster
-#rb <- crop(file_raster, shapefile)
-#plot(rb)
-#
-#library(tmap)
-#tm_shape(x)+tm_fill('layer', palette = "Blues", title = "Rainfall")
+rb <- crop(file_raster, shapefile)
+
+#plot raster
+plot(rb)
+
+library(tmap)
+tm_shape(x)+tm_fill('layer', palette = "Blues", title = "Rainfall")
 
 

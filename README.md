@@ -55,10 +55,10 @@ NetCDF files (*.nc4) can support different levels of information, or layers. In 
 
 I will be focusing on the product "3B43"", monthly rainfall estimate product, gridded with a resolution of 0.25° by 0.25°. 
 
-I am going to compile the gridded data to the district level of Peru. This means that the gridded information will be aggregated to each district (weighted mean by the land area). For this, I need to follow the steps: 
+I am going to compile the gridded data to the district level of Peru, because I have a household survey wich identifies families by district. This means that the gridded information will be aggregated to each district (weighted mean by the land area). For this, I need to follow the steps: 
 
 - Open .nc4 file
-- Extract raster information and aggregate to the district levels. For this, I need to download the shapefiles of the districts of Peru (found here:https://earthworks.stanford.edu/catalog/stanford-gv908jn2631), which contains geographic information on the coordinates and shapes of the polygons of the administrative limits of regions and districts. They are saved in the folder 'peru_shp'.
+- Extract raster information and aggregate to the district levels. For this, I need to download the shapefiles of the districts of Peru (found here:https://data.humdata.org/dataset/limites-de-peru), which contains geographic information on the coordinates and shapes of the polygons of the administrative limits of regions and districts. They are saved in the folder 'peru_shp'.
 
 In the code, I am doing these steps in a loop, in order to generate a panel of districts, month by month. 
 
