@@ -49,7 +49,7 @@ wget --load-cookies ~/.urs_cookies --save-cookies ~/.urs_cookies --auth-no-chall
 This will download all the files in the folder you are working. 
  
  
-## Reading NetCDF files
+## Working with NetCDF files and shapefiles
 
 NetCDF files (*.nc4) can support different levels of information, or layers. In the list of files downloaded, there is a README Document with a complete description of the algorithm used to estimate the output rainfall, sources (such as satellites and sensors), and information provided (which could include the inputs used).
 
@@ -112,15 +112,24 @@ raster_file <- raster(t(rain.array), xmn=min(lon), xmx=max(lon), ymn=min(lat), y
 
 A raster file looks like this: 
 
+```
+plot(raster_file)
+```
+
 ![](./images/raster_example.jpeg)
 
 And then extract the raster file information to shapefile using the code: 
 
 ```
-extract(raster_file, shapefile, fun = mean,na.rm=T, df=F, small=T, sp=T,  weights=TRUE, normalizedweights=TRUE)
+final_file<-extract(raster_file, shapefile, fun = mean,na.rm=T, df=F, small=T, sp=T,  weights=TRUE, normalizedweights=TRUE)
 ```
-which weights the average by area. This is a shapefile with a dataframe of info, that can be plotted like this: 
+which weights the average by area. The result is the shapefile filled with the aggregated info of the raster. It can be plotted like this: 
 
+```
+library(tmap)
+
+tm_shape(final_file)+tm_fill('Rainfall', palette = "Blues", title = "Rainfall")
+```
 
 ![](./images/final_sample.jpeg)
 
